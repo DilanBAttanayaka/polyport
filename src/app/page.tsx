@@ -182,124 +182,92 @@ const ASSET_LIST: Asset[] = [
 
   // Pre-Built Buildings (5)
   {
-    id: "build-dojo",
-    name: "Dojo Training Hall",
+    id: "build-1",
+    name: "Goju Pagoda Tower",
     category: "buildings",
     description:
-      "A traditional Japanese martial arts hall prefab featuring sliding shoji doors and fully textured interiors.",
-    tris: 2450,
-    textures: "1x Atlas (2048x2048)",
-    rigged: false,
-    keyFeature: "Sliding shoji doors & complete interior layout",
-  },
-  {
-    id: "build-pagoda",
-    name: "Pagoda Castle Tower",
-    category: "buildings",
-    description:
-      "A majestic three-tiered castle tower. Modular building floors allow stacking for custom heights.",
+      "A grand, five-tiered traditional Japanese pagoda tower. A majestic, high-altitude landmark.",
     tris: 4890,
     textures: "1x Atlas (2048x2048)",
     rigged: false,
-    keyFeature: "Modular floor design - stackable tiers",
+    keyFeature: "5-tiered stackable pagoda structure",
   },
   {
-    id: "build-shrine",
-    name: "Shinto Shrine",
+    id: "build-2",
+    name: "Minka Country Cottage",
     category: "buildings",
     description:
-      "Sacred temple hall model adorned with ceremonial ropes, steps, and offering box.",
-    tris: 3100,
-    textures: "1x Atlas (2048x2048)",
-    rigged: false,
-    keyFeature: "Curved roof geometry & structured wood frames",
-  },
-  {
-    id: "build-merchant-shop",
-    name: "Merchant Market Shop",
-    category: "buildings",
-    description:
-      "A storefront layout complete with fabric awnings, sign boards, and display shelving.",
-    tris: 2150,
-    textures: "1x Atlas (2048x2048)",
-    rigged: false,
-    keyFeature: "Exposed counter displays & paper lantern sockets",
-  },
-  {
-    id: "build-farmer-cottage",
-    name: "Farmer's Cottage",
-    category: "buildings",
-    description:
-      "A rustic countryside home featuring a thick low-poly thatch roof and exposed log beams.",
+      "A traditional Japanese countryside home featuring a thick low-poly thatch roof and sliding paper shoji doors.",
     tris: 1780,
     textures: "1x Atlas (2048x2048)",
     rigged: false,
-    keyFeature: "Stylized thatch roof geometry optimized for mobile",
+    keyFeature: "Detailed shoji doors & rustic thatch roof",
+  },
+  {
+    id: "build-3",
+    name: "Raised Shinto Pavilion",
+    category: "buildings",
+    description:
+      "A raised wooden sanctuary featuring a wide veranda and a steep thatched roof, ideal for sacred village outskirts.",
+    tris: 3100,
+    textures: "1x Atlas (2048x2048)",
+    rigged: false,
+    keyFeature: "Elevated foundation pillars & steps",
+  },
+  {
+    id: "build-4",
+    name: "Lakeside Tea House",
+    category: "buildings",
+    description:
+      "A scenic, raised pavilion complete with protective wooden railings, paper screen walls, and a tiled roof.",
+    tris: 2150,
+    textures: "1x Atlas (2048x2048)",
+    rigged: false,
+    keyFeature: "Wrap-around balcony deck & railings",
+  },
+  {
+    id: "build-5",
+    name: "Grand Dojo Hall",
+    category: "buildings",
+    description:
+      "An impressive two-tiered assembly hall featuring double-layered roofs and wide sliding doors, serving as the town's training hub.",
+    tris: 2450,
+    textures: "1x Atlas (2048x2048)",
+    rigged: false,
+    keyFeature: "Double-layered roof & grand entry doors",
   },
 
   // Building Blocks
+
   {
-    id: "block-toji-door",
-    name: "Toji Paper Doors",
+    id: "modular-building",
+    name: "Modular Building Pack",
     category: "blocks",
     description:
-      "Sliding paper screen panel (Toji style) mounted on a wooden tracks frame for custom building entrances.",
-    tris: 160,
+      "All individual modular building parts gathered together in one model to easily create structures in Unity.",
+    tris: 3200,
     textures: "Shared Atlas",
     rigged: false,
-    keyFeature: "Separate door panels ready to animate open/close",
+    keyFeature: "Includes pillars, walls, roofs, and beams",
   },
   {
-    id: "block-toji-wall",
-    name: "Toji Walls",
+    id: "modular-wall",
+    name: "Modular Outer Wall",
     category: "blocks",
     description:
-      "Traditional grid pattern wood and paper plaster walls, styled to form room dividers and dojo rooms.",
-    tris: 110,
+      "Standard structural outer wall module optimized for grid-based snapping layouts around your village.",
+    tris: 450,
     textures: "Shared Atlas",
     rigged: false,
-    keyFeature: "Clean double-sided texture mapping",
+    keyFeature: "Perfect pivot offsets for defense line snapping",
   },
   {
-    id: "block-roof-corner",
-    name: "Roof Corner Tile",
+    id: "modular-gate",
+    name: "Modular Outer Wall Gate",
     category: "blocks",
     description:
-      "Curved corner roof tile piece featuring cardboard style layered trims for assembly construction.",
-    tris: 280,
-    textures: "Shared Atlas",
-    rigged: false,
-    keyFeature: "Seamless tiling with roof wall panels",
-  },
-  {
-    id: "block-roof-wall",
-    name: "Roof Wall",
-    category: "blocks",
-    description:
-      "Triangular gable wall section designed to fit under sloped roof tiles.",
-    tris: 150,
-    textures: "Shared Atlas",
-    rigged: false,
-    keyFeature: "Pre-aligned slope angle matching standard roof tiles",
-  },
-  {
-    id: "block-modular-wall",
-    name: "Modular Wall",
-    category: "blocks",
-    description:
-      "Standard structural solid timber wall module optimized for grid-based snapping layouts.",
-    tris: 130,
-    textures: "Shared Atlas",
-    rigged: false,
-    keyFeature: "Perfect pivot offsets for 90-degree corner fits",
-  },
-  {
-    id: "block-main-gate",
-    name: "Main Gate",
-    category: "blocks",
-    description:
-      "Grand entrance gateway frame featuring a tiled roof and heavy double wooden doors.",
-    tris: 980,
+      "Grand entrance gateway frame designed to fit seamlessly with modular outer wall pieces.",
+    tris: 1250,
     textures: "Shared Atlas",
     rigged: false,
     keyFeature: "Doors isolated on separate pivots for open/close animation",
@@ -373,85 +341,125 @@ const ASSET_LIST: Asset[] = [
     keyFeature: "Optimized geometry with vertex paint for wind-sway shaders",
   },
 
-  // Trees (6)
+  // Trees (7)
   {
-    id: "tree-1",
-    name: "Tree 1",
+    id: "tree-fir",
+    name: "Fir Tree",
     category: "trees",
-    description: "",
+    description:
+      "Classic evergreen fir tree model featuring layered stylized branch needles.",
     tris: 850,
     textures: "Shared Atlas",
     rigged: false,
     keyFeature: "Stylized low-poly leaf clusters",
   },
   {
-    id: "tree-2",
-    name: "Tree 2",
+    id: "tree-fir2",
+    name: "Fir Tree 2",
     category: "trees",
-    description: "",
+    description:
+      "Alternate variant of the evergreen fir tree with a dense needle cluster layout.",
     tris: 920,
     textures: "Shared Atlas",
     rigged: false,
-    keyFeature: "Bent trunk style layout ready",
+    keyFeature: "Dense double needle cluster layout",
   },
   {
-    id: "tree-3",
-    name: "Tree 3",
+    id: "tree-oak",
+    name: "Oak Tree",
     category: "trees",
-    description: "",
+    description:
+      "Stately deciduous oak tree with broad shade-giving leafy canopies.",
     tris: 640,
-    textures: "Shared Atlas",
-    rigged: false,
-    keyFeature: "Compact pine style look",
-  },
-  {
-    id: "tree-4",
-    name: "Tree 4",
-    category: "trees",
-    description: "",
-    tris: 780,
-    textures: "Shared Atlas",
-    rigged: false,
-    keyFeature: "Multi-branch deciduous layout",
-  },
-  {
-    id: "tree-5",
-    name: "Tree 5",
-    category: "trees",
-    description: "",
-    tris: 1100,
     textures: "Shared Atlas",
     rigged: false,
     keyFeature: "Broad canopy shade model",
   },
   {
-    id: "tree-6",
-    name: "Tree 6",
+    id: "tree-oak2",
+    name: "Oak Tree 2",
     category: "trees",
-    description: "",
+    description:
+      "Large gnarly oak tree variant with detailed branch structures and a wide base.",
+    tris: 780,
+    textures: "Shared Atlas",
+    rigged: false,
+    keyFeature: "Thick gnarly trunk and branches",
+  },
+  {
+    id: "tree-pine",
+    name: "Pine Tree",
+    category: "trees",
+    description:
+      "Tall pine tree with conical needle structures optimized for forest scenes.",
+    tris: 1100,
+    textures: "Shared Atlas",
+    rigged: false,
+    keyFeature: "Tall conical evergreen design",
+  },
+  {
+    id: "tree-sakura",
+    name: "Sakura Tree",
+    category: "trees",
+    description:
+      "Stunning low-poly cherry blossom tree with puffy stylized pink flower clusters.",
+    tris: 1850,
+    textures: "Shared Atlas",
+    rigged: false,
+    keyFeature: "Puffy pink cherry blossom clusters",
+  },
+  {
+    id: "tree-spruce",
+    name: "Spruce Tree",
+    category: "trees",
+    description:
+      "Layered needle branch spruce tree, perfect for high-altitude tabletop battlefields.",
     tris: 950,
     textures: "Shared Atlas",
     rigged: false,
-    keyFeature: "Aged bonsai styled branch layout",
+    keyFeature: "Layered branch structure",
   },
 ];
 
-const getCharacterImagePath = (assetId: string): string | null => {
-  const mapping: Record<string, string> = {
-    "char-samurai": "char-samurai.png",
-    "char-archer": "char-archer.png",
-    "char-blacksmith": "char-blacksmith.png",
-    "char-lady-black": "char-lady-black.png",
-    "char-lady-red": "char-lady-red.png",
-    "char-lord": "char-lord.png",
-    "char-shinobi": "char-shinobi.png",
-    "char-merchant": "char-merchant.png",
-    "char-ninja": "char-ninja.png",
-    "char-monk": "char-monk.png",
-    "char-lady-samurai": "char-lady-samurai.png",
-    "char-farmer": "char-farmer.png",
+const getAssetImagePath = (assetId: string): string | null => {
+  if (assetId.startsWith("char-") || assetId.startsWith("build-")) {
+    return `/images/${assetId}.png`;
+  }
+  if (
+    assetId === "modular-building" ||
+    assetId === "block-toji-door" ||
+    assetId === "block-toji-wall" ||
+    assetId === "block-roof-corner"
+  ) {
+    return `/images/modu-building.png`;
+  }
+  if (assetId.startsWith("modular-")) {
+    return `/images/${assetId}.png`;
+  }
+  const treeImageMapping: Record<string, string> = {
+    "tree-fir": "tree-fir1.png",
+    "tree-fir2": "tree-fir2.png",
+    "tree-oak": "tree-oak1.png",
+    "tree-oak2": "tree-oak2.png",
+    "tree-pine": "tree-pine1.png",
+    "tree-sakura": "tree-sakura.png",
+    "tree-spruce": "tree-pine2.png",
   };
-  return mapping[assetId] ? `/images/${mapping[assetId]}` : null;
+  if (treeImageMapping[assetId]) {
+    return `/images/${treeImageMapping[assetId]}`;
+  }
+  return null;
+};
+
+const getAssetModelPath = (assetId: string): string => {
+  if (
+    assetId === "block-toji-door" ||
+    assetId === "block-toji-wall" ||
+    assetId === "block-roof-corner"
+  ) {
+    return `/models/modular-building.glb`;
+  }
+  return `/models/${assetId}.glb`;
 };
 
 export default function Home() {
@@ -684,6 +692,19 @@ export default function Home() {
               </button>
               <button
                 onClick={() => {
+                  setSelectedCategory("trees");
+                  setShow3d(false);
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-display font-bold transition-all duration-150 border-2 ${
+                  selectedCategory === "trees"
+                    ? "bg-[#e05a47] text-white border-[#3a2e2b] shadow-cardboard-sm -translate-y-0.5"
+                    : "text-[#3a2e2b] border-transparent hover:border-[#3a2e2b]/30"
+                }`}
+              >
+                Trees (7)
+              </button>
+              <button
+                onClick={() => {
                   setSelectedCategory("props");
                   setShow3d(false);
                 }}
@@ -694,19 +715,6 @@ export default function Home() {
                 }`}
               >
                 Props
-              </button>
-              <button
-                onClick={() => {
-                  setSelectedCategory("trees");
-                  setShow3d(false);
-                }}
-                className={`px-3 py-1.5 rounded-xl text-xs font-display font-bold transition-all duration-150 border-2 ${
-                  selectedCategory === "trees"
-                    ? "bg-[#e05a47] text-white border-[#3a2e2b] shadow-cardboard-sm -translate-y-0.5"
-                    : "text-[#3a2e2b] border-transparent hover:border-[#3a2e2b]/30"
-                }`}
-              >
-                Trees (6)
               </button>
             </div>
           </div>
@@ -732,12 +740,11 @@ export default function Home() {
                     <span className="text-[9px] font-display font-bold uppercase tracking-wider text-[#e05a47] px-2 py-0.5 rounded bg-[#f5ecd6] border border-[#3a2e2b]">
                       {asset.category}
                     </span>
-                    {asset.category !== "props" &&
-                      asset.category !== "trees" && (
-                        <span className="text-[10px] font-mono text-[#8a7a6c] bg-[#ebdcb9]/40 px-1.5 py-0.5 rounded border border-[#3a2e2b]/20">
-                          {asset.tris} tris
-                        </span>
-                      )}
+                    {asset.category !== "props" && (
+                      <span className="text-[10px] font-mono text-[#8a7a6c] bg-[#ebdcb9]/40 px-1.5 py-0.5 rounded border border-[#3a2e2b]/20">
+                        {asset.tris} tris
+                      </span>
+                    )}
                   </div>
 
                   <h3 className="font-display font-extrabold text-[#3a2e2b] text-base group-hover:text-[#e05a47] transition-colors">
@@ -773,17 +780,16 @@ export default function Home() {
                         {activeAsset.name}
                       </h3>
                     </div>
-                    {activeAsset.category !== "props" &&
-                      activeAsset.category !== "trees" && (
-                        <div className="text-right">
-                          <div className="text-xl font-display font-extrabold text-[#e05a47]">
-                            {activeAsset.tris}
-                          </div>
-                          <div className="text-[9px] text-[#8a7a6c] font-mono uppercase font-bold">
-                            Triangles
-                          </div>
+                    {activeAsset.category !== "props" && (
+                      <div className="text-right">
+                        <div className="text-xl font-display font-extrabold text-[#e05a47]">
+                          {activeAsset.tris}
                         </div>
-                      )}
+                        <div className="text-[9px] text-[#8a7a6c] font-mono uppercase font-bold">
+                          Triangles
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* 3D Model Render Viewport / Image Placeholder */}
@@ -797,7 +803,7 @@ export default function Home() {
                     {show3d ? (
                       <div className="w-full h-full relative">
                         {React.createElement("model-viewer", {
-                          src: `/models/${activeAsset.id}.glb`,
+                          src: getAssetModelPath(activeAsset.id),
                           alt: activeAsset.name,
                           "auto-rotate": true,
                           "camera-controls": true,
@@ -817,11 +823,14 @@ export default function Home() {
                       </div>
                     ) : (
                       <div className="w-full h-full p-4 flex flex-col items-center justify-between">
-                        {activeAsset.category === "characters" &&
-                        getCharacterImagePath(activeAsset.id) ? (
+                        {(activeAsset.category === "characters" ||
+                          activeAsset.category === "trees" ||
+                          activeAsset.category === "buildings" ||
+                          activeAsset.category === "blocks") &&
+                        getAssetImagePath(activeAsset.id) ? (
                           <div className="w-full flex-1 min-h-0 relative flex items-center justify-center">
                             <img
-                              src={getCharacterImagePath(activeAsset.id) || ""}
+                              src={getAssetImagePath(activeAsset.id) || ""}
                               alt={activeAsset.name}
                               className="w-full h-full object-contain rounded-2xl border-2 border-[#3a2e2b] bg-[#000000] p-2 shadow-cardboard-sm"
                             />
