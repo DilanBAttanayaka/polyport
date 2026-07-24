@@ -1,26 +1,64 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fdfaf2;
+  --foreground: #3a2e2b;
+  --font-sans: var(--font-quicksand);
+  --font-display: var(--font-fredoka);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  /* Cardboard craft paper grain overlay using a clean CSS pattern */
+  background-image: 
+    radial-gradient(rgba(58, 46, 43, 0.04) 1px, transparent 0),
+    radial-gradient(rgba(58, 46, 43, 0.04) 1px, transparent 0);
+  background-size: 8px 8px;
+  background-position: 0 0, 4px 4px;
+}
+
+/* Cardboard style utilities */
+.shadow-cardboard-sm {
+  box-shadow: 2px 2px 0px 0px #3a2e2b;
+}
+
+.shadow-cardboard {
+  box-shadow: 4px 4px 0px 0px #3a2e2b;
+}
+
+.shadow-cardboard-lg {
+  box-shadow: 7px 7px 0px 0px #3a2e2b;
+}
+
+.shadow-cardboard-inset {
+  box-shadow: inset 2px 2px 5px 0px rgba(58, 46, 43, 0.15);
+}
+
+/* Custom Scrollbar styled as cardboard channel */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f5ecd6;
+  border-left: 2px dashed #dcd1b4;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #c7b69c;
+  border-radius: 4px;
+  border: 1px solid #3a2e2b;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #ac9c82;
 }
