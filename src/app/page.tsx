@@ -854,7 +854,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Asset Grid Column */}
-            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4">
               {filteredAssets.map((asset) => (
                 <div
                   key={asset.id}
@@ -920,6 +920,12 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
+
+                  {activeAsset.description && (
+                    <p className="text-xs text-[#6b5853] font-medium leading-relaxed bg-[#ebdcb9]/20 border-2 border-dashed border-[#3a2e2b]/20 rounded-xl p-3">
+                      {activeAsset.description}
+                    </p>
+                  )}
 
                   {/* 3D Model Render Viewport / Image Placeholder */}
                   <div className="relative aspect-square w-full rounded-2xl border-2 border-[#3a2e2b] bg-[#ebdcb9] flex flex-col items-center justify-center overflow-hidden shadow-cardboard-sm group/preview">
