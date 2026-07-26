@@ -353,14 +353,13 @@ const ASSET_LIST: Asset[] = [
   },
   {
     id: "prop-lantern",
-    name: "Stone Toro Lantern",
+    name: "Hanging Lantern",
     category: "props",
-    description:
-      "Stylized traditional stone garden lantern. Model includes hollow light chambers.",
-    tris: 480,
+    description: "A decorative low-poly hanging paper lantern, perfect for ceilings or brackets.",
+    tris: 320,
     textures: "Shared Atlas",
     rigged: false,
-    keyFeature: "Pre-cut light chambers ready for point lights",
+    keyFeature: "Paper material texture ready for emission shaders",
   },
   {
     id: "prop-mat",
@@ -462,14 +461,13 @@ const ASSET_LIST: Asset[] = [
   },
   {
     id: "prop-torilamp",
-    name: "Tori Lantern Post",
+    name: "Stone Toro Lantern",
     category: "props",
-    description:
-      "Tall wooden lantern post matching Torii gate colors for pathways.",
-    tris: 320,
+    description: "Stylized traditional stone garden lantern, ideal for lighting pathways and shrine grounds.",
+    tris: 480,
     textures: "Shared Atlas",
     rigged: false,
-    keyFeature: "Integrated paper lantern hanging hook",
+    keyFeature: "Pre-cut light chambers ready for point lights",
   },
 
   // Trees (7)
