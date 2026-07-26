@@ -273,72 +273,203 @@ const ASSET_LIST: Asset[] = [
     keyFeature: "Doors isolated on separate pivots for open/close animation",
   },
 
-  // Other Props
+  // Other Props (18)
   {
-    id: "prop-torii",
-    name: "Red Torii Gate",
+    id: "prop-bridge",
+    name: "Arched Bridge",
     category: "props",
     description:
-      "The iconic red wooden shrine archway, perfect for outlining paths and boundary zones.",
+      "Traditional arched wooden bridge for spanning garden streams or dry gravel paths.",
     tris: 420,
     textures: "Shared Atlas",
     rigged: false,
-    keyFeature: "Accented stone base blocks & lintel styling",
+    keyFeature: "Perfect alignment snap for water planes",
+  },
+  {
+    id: "prop-bullseye",
+    name: "Training Bullseye",
+    category: "props",
+    description:
+      "Archery target board painted with red rings, mounted on a wooden frame.",
+    tris: 320,
+    textures: "Shared Atlas",
+    rigged: false,
+    keyFeature: "Detachable board node for hit effects",
+  },
+  {
+    id: "prop-cupboard",
+    name: "Storage Cupboard",
+    category: "props",
+    description:
+      "Classic wooden storage cupboard with detailed cabinet panels and sliding doors.",
+    tris: 640,
+    textures: "Shared Atlas",
+    rigged: false,
+    keyFeature: "Functional sliding cabinet doors",
+  },
+  {
+    id: "prop-fence",
+    name: "Garden Fence",
+    category: "props",
+    description:
+      "Short bamboo and wood fence section for enclosing gardens and defining paths.",
+    tris: 130,
+    textures: "Shared Atlas",
+    rigged: false,
+    keyFeature: "Seamless tiling and corner snapping support",
+  },
+  {
+    id: "prop-frog",
+    name: "Ornamental Frog Statue",
+    category: "props",
+    description:
+      "Cute low-poly stone frog statue, a traditional garden decoration for good luck.",
+    tris: 150,
+    textures: "Shared Atlas",
+    rigged: false,
+    keyFeature: "Highly optimized low-poly stone mesh",
+  },
+  {
+    id: "prop-grass",
+    name: "Grass Clump",
+    category: "props",
+    description:
+      "Stylized low-poly grass cluster to add organic detail to scene bases and paths.",
+    tris: 90,
+    textures: "Shared Atlas",
+    rigged: false,
+    keyFeature: "Includes vertex paint for wind-sway shader integration",
+  },
+  {
+    id: "prop-groundlamp",
+    name: "Paper Ground Lamp",
+    category: "props",
+    description:
+      "Low-profile paper and wood floor lantern emitting a soft warm glow.",
+    tris: 280,
+    textures: "Shared Atlas",
+    rigged: false,
+    keyFeature: "Hollow light chamber ready for emissive setup",
   },
   {
     id: "prop-lantern",
     name: "Stone Toro Lantern",
     category: "props",
     description:
-      "Stylized stone garden lantern. Model includes a hollow core to place Unity Point Lights.",
-    tris: 320,
-    textures: "Shared Atlas",
-    rigged: false,
-    keyFeature: "Pre-cut light chambers ready for emissive materials",
-  },
-  {
-    id: "prop-weapon-rack",
-    name: "Dojo Weapon Rack",
-    category: "props",
-    description:
-      "A display stand populated with low-poly katanas and bokken training sword models.",
-    tris: 640,
-    textures: "Shared Atlas",
-    rigged: false,
-    keyFeature: "Weapons can be detached as standalone pickups",
-  },
-  {
-    id: "prop-dummy",
-    name: "Straw Training Target",
-    category: "props",
-    description:
-      "A martial arts training post wrapped in rope texture, complete with a spring hinge base.",
+      "Stylized traditional stone garden lantern. Model includes hollow light chambers.",
     tris: 480,
     textures: "Shared Atlas",
     rigged: false,
-    keyFeature: "Configured pivot point at base for wobble physics",
+    keyFeature: "Pre-cut light chambers ready for point lights",
   },
   {
-    id: "prop-cargo-cart",
-    name: "Wooden Cargo Cart",
+    id: "prop-mat",
+    name: "Tatami Mat",
     category: "props",
     description:
-      "Two-wheeled hand wagon, perfect for placing in markets, streets, or farmlands.",
-    tris: 890,
+      "Traditional woven straw tatami mat layout piece for indoor floor decoration.",
+    tris: 60,
     textures: "Shared Atlas",
     rigged: false,
-    keyFeature: "Wheels isolated on separate nodes for spin animations",
+    keyFeature: "Seamless tiling layout snapping support",
   },
   {
-    id: "prop-sakura",
-    name: "Blossoming Sakura Tree",
+    id: "prop-papertree",
+    name: "Papercraft Shrub",
     category: "props",
     description:
-      "Stunning low-poly cherry blossom tree with puffy stylized pink flower clusters.",
-    tris: 1850,
+      "Stylized paper-folded decorative bush asset for stylized outdoor settings.",
+    tris: 320,
     textures: "Shared Atlas",
     rigged: false,
-    keyFeature: "Optimized geometry with vertex paint for wind-sway shaders",
+    keyFeature: "Vibrant low-poly folded leaf cards",
+  },
+  {
+    id: "prop-pond",
+    name: "Garden Pond",
+    category: "props",
+    description:
+      "Small low-poly water pond featuring stone borders and water plane mesh.",
+    tris: 780,
+    textures: "Shared Atlas",
+    rigged: false,
+    keyFeature: "Separate stone borders and water plane layers",
+  },
+  {
+    id: "prop-sandbox",
+    name: "Zen Sand Box",
+    category: "props",
+    description:
+      "Traditional miniature sandbox with raked sand pattern for peaceful garden setups.",
+    tris: 420,
+    textures: "Shared Atlas",
+    rigged: false,
+    keyFeature: "Highly detailed normal mapped sand ridges",
+  },
+  {
+    id: "prop-stone-path",
+    name: "Stepping Stone Path",
+    category: "props",
+    description:
+      "Set of flat stepping stones to build natural looking garden walkways.",
+    tris: 210,
+    textures: "Shared Atlas",
+    rigged: false,
+    keyFeature: "Includes 4 modular stone layout elements",
+  },
+  {
+    id: "prop-table",
+    name: "Low Wooden Table",
+    category: "props",
+    description:
+      "Traditional low-profile wood tea table for indoor dojo and cottage decoration.",
+    tris: 160,
+    textures: "Shared Atlas",
+    rigged: false,
+    keyFeature: "Perfect flat top collision bounds",
+  },
+  {
+    id: "prop-teapot1",
+    name: "Teapot Variant A",
+    category: "props",
+    description: "Stylized ceramic teapot for indoor tea ceremony scenes.",
+    tris: 110,
+    textures: "Shared Atlas",
+    rigged: false,
+    keyFeature: "Highly detailed lid and spout design",
+  },
+  {
+    id: "prop-teapot2",
+    name: "Teapot Variant B",
+    category: "props",
+    description:
+      "Round earthenware kettle prop for hearth and kitchen settings.",
+    tris: 90,
+    textures: "Shared Atlas",
+    rigged: false,
+    keyFeature: "Rustic low-poly clay textures mapping",
+  },
+  {
+    id: "prop-torigate",
+    name: "Red Torii Gate",
+    category: "props",
+    description:
+      "Traditional Japanese red shrine gateway arch for outlining paths.",
+    tris: 650,
+    textures: "Shared Atlas",
+    rigged: false,
+    keyFeature: "Accented stone base blocks & lintel styling",
+  },
+  {
+    id: "prop-torilamp",
+    name: "Tori Lantern Post",
+    category: "props",
+    description:
+      "Tall wooden lantern post matching Torii gate colors for pathways.",
+    tris: 320,
+    textures: "Shared Atlas",
+    rigged: false,
+    keyFeature: "Integrated paper lantern hanging hook",
   },
 
   // Trees (7)
@@ -422,7 +553,11 @@ const ASSET_LIST: Asset[] = [
 ];
 
 const getAssetImagePath = (assetId: string): string | null => {
-  if (assetId.startsWith("char-") || assetId.startsWith("build-")) {
+  if (
+    assetId.startsWith("char-") ||
+    assetId.startsWith("build-") ||
+    assetId.startsWith("prop-")
+  ) {
     return `/images/${assetId}.png`;
   }
   if (
@@ -714,7 +849,7 @@ export default function Home() {
                     : "text-[#3a2e2b] border-transparent hover:border-[#3a2e2b]/30"
                 }`}
               >
-                Props
+                Props (18)
               </button>
             </div>
           </div>
@@ -740,11 +875,9 @@ export default function Home() {
                     <span className="text-[9px] font-display font-bold uppercase tracking-wider text-[#e05a47] px-2 py-0.5 rounded bg-[#f5ecd6] border border-[#3a2e2b]">
                       {asset.category}
                     </span>
-                    {asset.category !== "props" && (
-                      <span className="text-[10px] font-mono text-[#8a7a6c] bg-[#ebdcb9]/40 px-1.5 py-0.5 rounded border border-[#3a2e2b]/20">
-                        {asset.tris} tris
-                      </span>
-                    )}
+                    <span className="text-[10px] font-mono text-[#8a7a6c] bg-[#ebdcb9]/40 px-1.5 py-0.5 rounded border border-[#3a2e2b]/20">
+                      {asset.tris} tris
+                    </span>
                   </div>
 
                   <h3 className="font-display font-extrabold text-[#3a2e2b] text-base group-hover:text-[#e05a47] transition-colors">
@@ -780,16 +913,14 @@ export default function Home() {
                         {activeAsset.name}
                       </h3>
                     </div>
-                    {activeAsset.category !== "props" && (
-                      <div className="text-right">
-                        <div className="text-xl font-display font-extrabold text-[#e05a47]">
-                          {activeAsset.tris}
-                        </div>
-                        <div className="text-[9px] text-[#8a7a6c] font-mono uppercase font-bold">
-                          Triangles
-                        </div>
+                    <div className="text-right">
+                      <div className="text-xl font-display font-extrabold text-[#e05a47]">
+                        {activeAsset.tris}
                       </div>
-                    )}
+                      <div className="text-[9px] text-[#8a7a6c] font-mono uppercase font-bold">
+                        Triangles
+                      </div>
+                    </div>
                   </div>
 
                   {/* 3D Model Render Viewport / Image Placeholder */}
@@ -802,18 +933,48 @@ export default function Home() {
 
                     {show3d ? (
                       <div className="w-full h-full relative">
-                        {React.createElement("model-viewer", {
-                          src: getAssetModelPath(activeAsset.id),
-                          alt: activeAsset.name,
-                          "auto-rotate": true,
-                          "camera-controls": true,
-                          "shadow-intensity": "1",
-                          style: {
-                            width: "100%",
-                            height: "100%",
-                            outline: "none",
-                          },
-                        } as any)}
+                        {React.createElement(
+                          "model-viewer",
+                          {
+                            src: getAssetModelPath(activeAsset.id),
+                            alt: activeAsset.name,
+                            "auto-rotate": true,
+                            "camera-controls": true,
+                            "shadow-intensity": "1",
+                            style: {
+                              width: "100%",
+                              height: "100%",
+                              outline: "none",
+                            },
+                          } as any,
+                          React.createElement(
+                            "div",
+                            {
+                              slot: "poster",
+                              className:
+                                "absolute inset-0 bg-[#ebdcb9] flex flex-col items-center justify-center pointer-events-none z-20",
+                            },
+                            React.createElement(
+                              "div",
+                              {
+                                className:
+                                  "flex flex-col items-center justify-center p-6 bg-[#fcf8f2] border-2 border-[#3a2e2b] rounded-2xl shadow-cardboard-sm",
+                              },
+                              React.createElement("div", {
+                                className:
+                                  "w-8 h-8 border-4 border-[#e05a47] border-t-transparent rounded-full animate-spin mb-3",
+                              }),
+                              React.createElement(
+                                "span",
+                                {
+                                  className:
+                                    "font-display font-extrabold text-xs text-[#3a2e2b] tracking-wider uppercase",
+                                },
+                                "Loading 3D Model...",
+                              ),
+                            ),
+                          ),
+                        )}
                         <button
                           onClick={() => setShow3d(false)}
                           className="absolute bottom-3 right-3 px-3 py-1.5 rounded-xl bg-[#fcf8f2] border-2 border-[#3a2e2b] text-[10px] font-bold font-display shadow-cardboard-sm hover:bg-[#ebdcb9] active:translate-y-0.5 transition-all text-[#3a2e2b]"
@@ -823,11 +984,7 @@ export default function Home() {
                       </div>
                     ) : (
                       <div className="w-full h-full p-4 flex flex-col items-center justify-between">
-                        {(activeAsset.category === "characters" ||
-                          activeAsset.category === "trees" ||
-                          activeAsset.category === "buildings" ||
-                          activeAsset.category === "blocks") &&
-                        getAssetImagePath(activeAsset.id) ? (
+                        {getAssetImagePath(activeAsset.id) ? (
                           <div className="w-full flex-1 min-h-0 relative flex items-center justify-center">
                             <img
                               src={getAssetImagePath(activeAsset.id) || ""}
