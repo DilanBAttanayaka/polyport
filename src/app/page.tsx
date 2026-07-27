@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Script from "next/script";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // ============================================================================
 // PORTFOLIO CONFIGURATION - Feudal Japan Low-Poly 3D Asset Pack
@@ -602,6 +602,37 @@ export default function Home() {
   const [activeAsset, setActiveAsset] = useState<Asset | null>(ASSET_LIST[0]);
   const [copied, setCopied] = useState(false);
   const [show3d, setShow3d] = useState(false);
+  const [downloadProgress, setDownloadProgress] = useState(0);
+  const modelViewerRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (!show3d) {
+      setDownloadProgress(0);
+      return;
+    }
+
+    const viewer = modelViewerRef.current;
+    if (!viewer) return;
+
+    const onProgress = (event: any) => {
+      const progress = event.detail.totalProgress || 0;
+      setDownloadProgress(Math.round(progress * 100));
+    };
+
+    const onLoad = () => {
+      setDownloadProgress(100);
+    };
+
+    setDownloadProgress(0);
+
+    viewer.addEventListener("progress", onProgress);
+    viewer.addEventListener("load", onLoad);
+
+    return () => {
+      viewer.removeEventListener("progress", onProgress);
+      viewer.removeEventListener("load", onLoad);
+    };
+  }, [activeAsset, show3d]);
 
   const filteredAssets = ASSET_LIST.filter(
     (asset) => asset.category === selectedCategory,
@@ -940,6 +971,7 @@ export default function Home() {
                         {React.createElement(
                           "model-viewer",
                           {
+                            ref: modelViewerRef,
                             src: getAssetModelPath(activeAsset.id),
                             alt: activeAsset.name,
                             "auto-rotate": true,
@@ -962,7 +994,7 @@ export default function Home() {
                               "div",
                               {
                                 className:
-                                  "flex flex-col items-center justify-center p-6 bg-[#fcf8f2] border-2 border-[#3a2e2b] rounded-2xl shadow-cardboard-sm",
+                                  "flex flex-col items-center justify-center p-6 bg-[#fcf8f2] border-2 border-[#3a2e2b] rounded-2xl shadow-cardboard-sm w-64",
                               },
                               React.createElement("div", {
                                 className:
@@ -972,10 +1004,30 @@ export default function Home() {
                                 "span",
                                 {
                                   className:
-                                    "font-display font-extrabold text-xs text-[#3a2e2b] tracking-wider uppercase",
+                                    "font-display font-extrabold text-xs text-[#3a2e2b] tracking-wider uppercase mb-2",
                                 },
-                                "Loading 3D Model...",
+                                "Downloading Model...",
                               ),
+                              React.createElement(
+                                "div",
+                                {
+                                  className:
+                                    "w-full h-3 bg-[#ebdcb9] border-2 border-[#3a2e2b] rounded-full overflow-hidden relative shadow-cardboard-inset",
+                                },
+                                React.createElement("div", {
+                                  className:
+                                    "h-full bg-[#e05a47] transition-all duration-150 ease-out",
+                                  style: { width: `${downloadProgress}%` },
+                                })
+                              ),
+                              React.createElement(
+                                "span",
+                                {
+                                  className:
+                                    "font-mono font-bold text-[10px] text-[#8a7a6c] mt-1.5",
+                                },
+                                `${downloadProgress}%`,
+                              )
                             ),
                           ),
                         )}
