@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Script from "next/script";
 import React, { useState, useEffect, useRef } from "react";
+import { Instagram, Youtube } from "lucide-react";
 
 // ============================================================================
 // PORTFOLIO CONFIGURATION - Feudal Japan Low-Poly 3D Asset Pack
@@ -17,6 +18,7 @@ interface Asset {
   rigged: boolean;
   animations?: string[];
   keyFeature: string;
+  tag?: string;
 }
 
 const CHARACTER_ANIMATIONS = [
@@ -82,6 +84,7 @@ const ASSET_LIST: Asset[] = [
     rigged: true,
     animations: CHARACTER_ANIMATIONS,
     keyFeature: "Detachable fan blade weapon attachments",
+    tag: "LBLK",
   },
   {
     id: "char-lady-red",
@@ -94,6 +97,7 @@ const ASSET_LIST: Asset[] = [
     rigged: true,
     animations: CHARACTER_ANIMATIONS,
     keyFeature: "Fully modeled paper parasol accessory mesh",
+    tag: "LRED",
   },
   {
     id: "char-lord",
@@ -166,6 +170,7 @@ const ASSET_LIST: Asset[] = [
     rigged: true,
     animations: CHARACTER_ANIMATIONS,
     keyFeature: "Long reach naginata weapon mesh included",
+    tag: "LSAM",
   },
   {
     id: "char-farmer",
@@ -191,6 +196,7 @@ const ASSET_LIST: Asset[] = [
     textures: "1x Atlas (2048x2048)",
     rigged: false,
     keyFeature: "5-tiered stackable pagoda structure",
+    tag: "PAGO",
   },
   {
     id: "build-2",
@@ -202,6 +208,7 @@ const ASSET_LIST: Asset[] = [
     textures: "1x Atlas (2048x2048)",
     rigged: false,
     keyFeature: "Detailed shoji doors & rustic thatch roof",
+    tag: "MINK",
   },
   {
     id: "build-3",
@@ -213,6 +220,7 @@ const ASSET_LIST: Asset[] = [
     textures: "1x Atlas (2048x2048)",
     rigged: false,
     keyFeature: "Elevated foundation pillars & steps",
+    tag: "SHIN",
   },
   {
     id: "build-4",
@@ -224,6 +232,7 @@ const ASSET_LIST: Asset[] = [
     textures: "1x Atlas (2048x2048)",
     rigged: false,
     keyFeature: "Wrap-around balcony deck & railings",
+    tag: "TEAH",
   },
   {
     id: "build-5",
@@ -235,6 +244,7 @@ const ASSET_LIST: Asset[] = [
     textures: "1x Atlas (2048x2048)",
     rigged: false,
     keyFeature: "Double-layered roof & grand entry doors",
+    tag: "DOJO",
   },
 
   // Building Blocks
@@ -355,7 +365,8 @@ const ASSET_LIST: Asset[] = [
     id: "prop-lantern",
     name: "Hanging Lantern",
     category: "props",
-    description: "A decorative low-poly hanging paper lantern, perfect for ceilings or brackets.",
+    description:
+      "A decorative low-poly hanging paper lantern, perfect for ceilings or brackets.",
     tris: 320,
     textures: "Shared Atlas",
     rigged: false,
@@ -463,7 +474,8 @@ const ASSET_LIST: Asset[] = [
     id: "prop-torilamp",
     name: "Stone Toro Lantern",
     category: "props",
-    description: "Stylized traditional stone garden lantern, ideal for lighting pathways and shrine grounds.",
+    description:
+      "Stylized traditional stone garden lantern, ideal for lighting pathways and shrine grounds.",
     tris: 480,
     textures: "Shared Atlas",
     rigged: false,
@@ -605,6 +617,18 @@ export default function Home() {
   const [downloadProgress, setDownloadProgress] = useState(0);
   const modelViewerRef = useRef<any>(null);
 
+  // Contact form state
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "sending" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
   useEffect(() => {
     if (!show3d) {
       setDownloadProgress(0);
@@ -634,14 +658,81 @@ export default function Home() {
     };
   }, [activeAsset, show3d]);
 
+  useEffect(() => {
+    // Set up Turnstile callback
+    (window as any).onTurnstileCallback = (token: string) => {
+      setTurnstileToken(token);
+    };
+    return () => {
+      delete (window as any).onTurnstileCallback;
+    };
+  }, []);
+
   const filteredAssets = ASSET_LIST.filter(
     (asset) => asset.category === selectedCategory,
   );
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("sales@studiopapercraft.com");
+    navigator.clipboard.writeText("polyportofficial@gmail.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const requestSampleAsset = (asset: Asset) => {
+    const assetTag =
+      asset.tag || asset.id.split("-")[1].substring(0, 4).toUpperCase();
+    setFormData((prev) => ({
+      ...prev,
+      message: `Hello! I would like to request a sample for the "${asset.name}" asset (TAG-${assetTag}). Please send me the file package or details.`,
+    }));
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleCategoryChange = (
+    category: "characters" | "buildings" | "blocks" | "trees" | "props",
+  ) => {
+    setSelectedCategory(category);
+    setShow3d(false);
+    const firstAsset = ASSET_LIST.find((asset) => asset.category === category);
+    if (firstAsset) {
+      setActiveAsset(firstAsset);
+    }
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!turnstileToken) {
+      setErrorMessage("Please complete the security check.");
+      setSubmitStatus("error");
+      return;
+    }
+    setSubmitStatus("sending");
+    setErrorMessage("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, turnstileToken }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Something went wrong.");
+      }
+      setSubmitStatus("success");
+      setFormData({ name: "", email: "", message: "" });
+      setTurnstileToken("");
+      // Reset turnstile widget
+      if (typeof window !== "undefined" && (window as any).turnstile) {
+        (window as any).turnstile.reset();
+      }
+    } catch (err: any) {
+      setErrorMessage(err.message || "Failed to send message.");
+      setSubmitStatus("error");
+    }
   };
 
   return (
@@ -649,6 +740,10 @@ export default function Home() {
       <Script
         src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"
         type="module"
+        strategy="afterInteractive"
+      />
+      <Script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
         strategy="afterInteractive"
       />
       {/* Playful craft-style header pattern */}
@@ -816,10 +911,7 @@ export default function Home() {
             {/* Category Select Filters as tabs/stickers */}
             <div className="flex flex-wrap gap-2 bg-[#ebdcb9]/40 p-2 rounded-2xl border-2 border-[#3a2e2b] shadow-cardboard-sm">
               <button
-                onClick={() => {
-                  setSelectedCategory("characters");
-                  setShow3d(false);
-                }}
+                onClick={() => handleCategoryChange("characters")}
                 className={`px-3 py-1.5 rounded-xl text-xs font-display font-bold transition-all duration-150 border-2 ${
                   selectedCategory === "characters"
                     ? "bg-[#e05a47] text-white border-[#3a2e2b] shadow-cardboard-sm -translate-y-0.5"
@@ -829,10 +921,7 @@ export default function Home() {
                 Chibi Characters (12)
               </button>
               <button
-                onClick={() => {
-                  setSelectedCategory("buildings");
-                  setShow3d(false);
-                }}
+                onClick={() => handleCategoryChange("buildings")}
                 className={`px-3 py-1.5 rounded-xl text-xs font-display font-bold transition-all duration-150 border-2 ${
                   selectedCategory === "buildings"
                     ? "bg-[#e05a47] text-white border-[#3a2e2b] shadow-cardboard-sm -translate-y-0.5"
@@ -842,10 +931,7 @@ export default function Home() {
                 Buildings (5)
               </button>
               <button
-                onClick={() => {
-                  setSelectedCategory("blocks");
-                  setShow3d(false);
-                }}
+                onClick={() => handleCategoryChange("blocks")}
                 className={`px-3 py-1.5 rounded-xl text-xs font-display font-bold transition-all duration-150 border-2 ${
                   selectedCategory === "blocks"
                     ? "bg-[#e05a47] text-white border-[#3a2e2b] shadow-cardboard-sm -translate-y-0.5"
@@ -855,10 +941,7 @@ export default function Home() {
                 Building Blocks
               </button>
               <button
-                onClick={() => {
-                  setSelectedCategory("trees");
-                  setShow3d(false);
-                }}
+                onClick={() => handleCategoryChange("trees")}
                 className={`px-3 py-1.5 rounded-xl text-xs font-display font-bold transition-all duration-150 border-2 ${
                   selectedCategory === "trees"
                     ? "bg-[#e05a47] text-white border-[#3a2e2b] shadow-cardboard-sm -translate-y-0.5"
@@ -868,10 +951,7 @@ export default function Home() {
                 Trees (7)
               </button>
               <button
-                onClick={() => {
-                  setSelectedCategory("props");
-                  setShow3d(false);
-                }}
+                onClick={() => handleCategoryChange("props")}
                 className={`px-3 py-1.5 rounded-xl text-xs font-display font-bold transition-all duration-150 border-2 ${
                   selectedCategory === "props"
                     ? "bg-[#e05a47] text-white border-[#3a2e2b] shadow-cardboard-sm -translate-y-0.5"
@@ -921,7 +1001,9 @@ export default function Home() {
                       {asset.rigged ? "✨ Mecanim Rigged" : "📦 Static Mesh"}
                     </span>
                     <span className="text-[9px] text-[#8a7a6c] font-mono font-bold">
-                      TAG-{asset.id.split("-")[1].substring(0, 4).toUpperCase()}
+                      TAG-
+                      {asset.tag ||
+                        asset.id.split("-")[1].substring(0, 4).toUpperCase()}
                     </span>
                   </div>
                 </div>
@@ -1018,7 +1100,7 @@ export default function Home() {
                                   className:
                                     "h-full bg-[#e05a47] transition-all duration-150 ease-out",
                                   style: { width: `${downloadProgress}%` },
-                                })
+                                }),
                               ),
                               React.createElement(
                                 "span",
@@ -1027,7 +1109,7 @@ export default function Home() {
                                     "font-mono font-bold text-[10px] text-[#8a7a6c] mt-1.5",
                                 },
                                 `${downloadProgress}%`,
-                              )
+                              ),
                             ),
                           ),
                         )}
@@ -1100,7 +1182,10 @@ export default function Home() {
 
                   {/* Download button row */}
                   <div className="pt-2 border-t-2 border-dashed border-[#3a2e2b]/30 flex gap-2">
-                    <button className="flex-1 py-2.5 rounded-xl bg-[#fcf8f2] hover:bg-[#f5ecd6] border-2 border-[#3a2e2b] text-xs font-display font-bold text-[#3a2e2b] shadow-cardboard-sm hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-none transition-all duration-100 flex items-center justify-center gap-1.5">
+                    <button
+                      onClick={() => requestSampleAsset(activeAsset)}
+                      className="flex-1 py-2.5 rounded-xl bg-[#fcf8f2] hover:bg-[#f5ecd6] border-2 border-[#3a2e2b] text-xs font-display font-bold text-[#3a2e2b] shadow-cardboard-sm hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-none transition-all duration-100 flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
                       📥 Request for Sample Asset
                     </button>
                   </div>
@@ -1110,6 +1195,102 @@ export default function Home() {
                   Select a chibi card to inspect specs
                 </div>
               )}
+            </div>
+          </div>
+        </section>
+
+        {/* Face Blend Shapes Showcase Section */}
+        <section
+          id="blendshapes"
+          className="py-8 relative border-t-2 border-dashed border-[#3a2e2b]/30"
+        >
+          <div className="space-y-4 mb-8 text-center">
+            <h2 className="text-3xl font-display font-extrabold text-[#3a2e2b] flex items-center justify-center gap-2">
+              🎭 Face Blend Shapes Showcase
+            </h2>
+            <p className="text-[#6b5853] font-medium text-sm leading-relaxed max-w-3xl mx-auto">
+              All characters include fully configured facial blend shapes for
+              eyes and mouth expressions. Watch the full showcase playing on
+              loop.
+            </p>
+          </div>
+
+          <div
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch w-full mx-auto"
+            style={{ maxWidth: "800px" }}
+          >
+            {/* Left Column: List of expressions */}
+            <div className="bg-[#ebdcb9]/30 border-2 border-[#3a2e2b] rounded-3xl p-6 shadow-cardboard-sm flex flex-col justify-between space-y-4">
+              <div className="space-y-2">
+                <label className="text-[10px] font-display font-bold uppercase tracking-wider text-[#8a7a6c] block">
+                  Expressions Included
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  {[
+                    { label: "Happy", icon: "😄" },
+                    { label: "Sad", icon: "😢" },
+                    { label: "Confused", icon: "🌀" },
+                    { label: "Laugh", icon: "😆" },
+                    { label: "Angry", icon: "💢" },
+                    { label: "Worry", icon: "😟" },
+                    { label: "Eyes Closed", icon: "😑" },
+                    { label: "L Eye Closed", icon: "😉" },
+                    { label: "R Eye Closed", icon: "😉" },
+                  ].map((shape, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-2 bg-[#fdfaf2] text-[#3a2e2b] font-display text-xs rounded-xl border-2 border-[#3a2e2b] font-bold shadow-cardboard-sm flex items-center gap-1.5 select-none"
+                    >
+                      <span>{shape.icon}</span>
+                      <span>{shape.label}</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Video Player Display Area */}
+            <div className="bg-[#fdfaf2] border-2 border-[#3a2e2b] rounded-3xl p-2 shadow-cardboard relative overflow-hidden flex flex-col justify-between min-h-[200px]">
+              {/* Paper Grid background */}
+              <div className="absolute inset-0 bg-[radial-gradient(#3a2e2b_1px,transparent_1px)] [background-size:1.5rem_1.5rem] opacity-10 pointer-events-none" />
+
+              {/* Video rendering frame */}
+              <div className="flex-1 flex items-center justify-center py-4 relative z-10 min-h-[100px]">
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-28 h-28 object-cover rounded-2xl border-2 border-[#3a2e2b] shadow-cardboard-sm bg-[#ebdcb9]"
+                  onError={(e) => {
+                    // Gracefully fallback / show placeholder info if video file doesn't exist
+                    const target = e.target as HTMLVideoElement;
+                    target.style.display = "none";
+                    const placeholder = target.nextSibling as HTMLDivElement;
+                    if (placeholder) {
+                      placeholder.style.display = "flex";
+                    }
+                  }}
+                >
+                  <source src="/videos/blendshapes-all.mp4" type="video/mp4" />
+                </video>
+
+                {/* Video Loading / Not Available Graphic Cardboard Box */}
+                <div className="hidden flex flex-col items-center justify-center p-6 bg-[#fcf8f2] border-2 border-dashed border-[#3a2e2b]/40 rounded-2xl shadow-cardboard-inset w-72 text-center">
+                  <span className="text-4xl filter drop-shadow-[2px_2px_0px_#3a2e2b] mb-2 animate-pulse">
+                    🎭
+                  </span>
+                  <span className="font-display font-extrabold text-xs text-[#3a2e2b] tracking-wider uppercase mb-1">
+                    Playing Showcase
+                  </span>
+                  <p className="text-[9px] text-[#8a7a6c] font-medium leading-normal">
+                    Loads animation loop from: <br />
+                    <span className="font-mono text-[#3a2e2b] break-all">
+                      /videos/blendshapes-all.mp4
+                    </span>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -1221,37 +1402,158 @@ export default function Home() {
           id="contact"
           className="py-12 border-t-2 border-[#3a2e2b] mt-8"
         >
-          <div className="bg-[#ebdcb9] border-2 border-[#3a2e2b] rounded-3xl p-6 sm:p-10 shadow-cardboard relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div className="space-y-2 max-w-xl">
-              <h3 className="text-2xl font-display font-extrabold text-[#3a2e2b]">
-                Need custom 3D models?
-              </h3>
-              <p className="text-sm text-[#6b5853] font-medium leading-relaxed">
-                Contact Polyport to license custom mesh extensions, custom
-                textures, or unique architectural models matching the cardboard
-                aesthetic.
-              </p>
-            </div>
+          <div className="bg-[#ebdcb9] border-2 border-[#3a2e2b] rounded-3xl p-6 sm:p-10 shadow-cardboard relative overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* Left Column: Direct copy & socials */}
+            <div className="lg:col-span-5 space-y-6 flex flex-col justify-between">
+              <div className="space-y-3">
+                <h3 className="text-2xl font-display font-extrabold text-[#3a2e2b]">
+                  Need custom 3D models?
+                </h3>
+                <p className="text-sm text-[#6b5853] font-medium leading-relaxed">
+                  Contact Polyport to license custom mesh extensions, custom
+                  textures, or unique architectural models.
+                </p>
+              </div>
 
-            <div className="flex flex-col gap-2 shrink-0 min-w-[280px]">
-              <label className="text-[10px] font-display font-bold uppercase tracking-wider text-[#8a7a6c]">
-                Licensing & Support
-              </label>
-              <div className="flex items-center gap-2 p-1 bg-[#fdfaf2] border-2 border-[#3a2e2b] rounded-2xl shadow-cardboard-sm">
-                <input
-                  type="text"
-                  readOnly
-                  value="sales@studiopapercraft.com"
-                  className="flex-1 bg-transparent px-3 text-sm text-[#3a2e2b] focus:outline-none font-mono font-bold"
-                />
-                <button
-                  onClick={copyEmail}
-                  className="px-3.5 py-2 rounded-xl bg-[#e05a47] hover:bg-[#d04633] text-white text-xs font-display font-bold border-2 border-[#3a2e2b] transition-all flex items-center gap-1"
-                >
-                  {copied ? <span>Copied!</span> : <span>Copy</span>}
-                </button>
+              <div className="space-y-4">
+                <div className="flex flex-col gap-2 w-full">
+                  <label className="text-[10px] font-display font-bold uppercase tracking-wider text-[#8a7a6c]">
+                    Direct Support Email
+                  </label>
+                  <div className="flex items-center gap-2 p-1 bg-[#fdfaf2] border-2 border-[#3a2e2b] rounded-2xl shadow-cardboard-sm">
+                    <input
+                      type="text"
+                      readOnly
+                      value="polyportofficial@gmail.com"
+                      className="flex-1 bg-transparent px-3 text-sm text-[#3a2e2b] focus:outline-none font-mono font-bold"
+                    />
+                    <button
+                      onClick={copyEmail}
+                      className="px-3.5 py-2 rounded-xl bg-[#e05a47] hover:bg-[#d04633] text-white text-xs font-display font-bold border-2 border-[#3a2e2b] transition-all flex items-center gap-1 cursor-pointer animate-pulse"
+                    >
+                      {copied ? <span>Copied!</span> : <span>Copy</span>}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-display font-bold uppercase tracking-wider text-[#8a7a6c] block">
+                    Follow Us
+                  </label>
+                  <div className="flex gap-2">
+                    <a
+                      href="https://instagram.com/polyport"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 rounded-xl text-xs font-display font-bold bg-[#fdfaf2] hover:bg-[#f5ecd6] border-2 border-[#3a2e2b] text-[#3a2e2b] shadow-cardboard-sm hover:-translate-y-0.5 transition-all flex items-center gap-1.5"
+                    >
+                      <Instagram className="w-3.5 h-3.5 text-[#e05a47]" />
+                      Instagram
+                    </a>
+                    <a
+                      href="https://youtube.com/@polyport"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 rounded-xl text-xs font-display font-bold bg-[#fdfaf2] hover:bg-[#f5ecd6] border-2 border-[#3a2e2b] text-[#3a2e2b] shadow-cardboard-sm hover:-translate-y-0.5 transition-all flex items-center gap-1.5"
+                    >
+                      <Youtube className="w-3.5 h-3.5 text-[#e05a47]" />
+                      YouTube
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
+
+            {/* Right Column: Protected Form */}
+            <form
+              onSubmit={handleFormSubmit}
+              className="lg:col-span-7 bg-[#fcf8f2] border-2 border-[#3a2e2b] rounded-2xl p-6 shadow-cardboard-sm space-y-4"
+            >
+              <h4 className="font-display font-bold text-[#3a2e2b] text-lg">
+                Send us a direct request
+              </h4>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-[10px] font-display font-bold uppercase tracking-wider text-[#8a7a6c]">
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
+                    className="w-full bg-[#fdfaf2] border-2 border-[#3a2e2b] rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#e05a47]/20"
+                    placeholder="John Doe"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-[10px] font-display font-bold uppercase tracking-wider text-[#8a7a6c]">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                    className="w-full bg-[#fdfaf2] border-2 border-[#3a2e2b] rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#e05a47]/20"
+                    placeholder="john@example.com"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[10px] font-display font-bold uppercase tracking-wider text-[#8a7a6c]">
+                  Message / Requirements
+                </label>
+                <textarea
+                  required
+                  rows={4}
+                  value={formData.message}
+                  onChange={(e) =>
+                    setFormData({ ...formData, message: e.target.value })
+                  }
+                  className="w-full bg-[#fdfaf2] border-2 border-[#3a2e2b] rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#e05a47]/20 resize-none"
+                  placeholder="Describe your design needs, polygon budget, and custom requirements..."
+                />
+              </div>
+
+              {/* Cloudflare Turnstile Verification Widget */}
+              <div className="flex flex-col gap-1.5 py-1">
+                <div
+                  className="cf-turnstile"
+                  data-sitekey={
+                    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ||
+                    "1x00000000000000000000AA"
+                  }
+                  data-callback="onTurnstileCallback"
+                />
+              </div>
+
+              {submitStatus === "success" && (
+                <div className="p-3 bg-[#7cb342]/10 border-2 border-[#7cb342] text-[#7cb342] rounded-xl text-xs font-bold">
+                  🎉 Inquiry sent successfully! We will get back to you shortly.
+                </div>
+              )}
+
+              {submitStatus === "error" && (
+                <div className="p-3 bg-[#e05a47]/10 border-2 border-[#e05a47] text-[#e05a47] rounded-xl text-xs font-bold">
+                  ⚠️ {errorMessage}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={submitStatus === "sending" || !turnstileToken}
+                className="w-full py-2.5 rounded-xl bg-[#e05a47] hover:bg-[#d04633] text-white text-xs font-display font-bold border-2 border-[#3a2e2b] shadow-cardboard-sm hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-none transition-all disabled:opacity-50 disabled:pointer-events-none cursor-pointer flex items-center justify-center gap-2"
+              >
+                {submitStatus === "sending" ? "Sending..." : "Submit Inquiry"}
+              </button>
+            </form>
           </div>
         </section>
       </main>
@@ -1280,6 +1582,26 @@ export default function Home() {
               className="hover:text-[#3a2e2b] transition-colors"
             >
               ArtStation
+            </a>
+            <span>•</span>
+            <a
+              href="https://instagram.com/polyport"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#3a2e2b] transition-colors flex items-center gap-1"
+            >
+              <Instagram className="w-3 h-3" />
+              Instagram
+            </a>
+            <span>•</span>
+            <a
+              href="https://youtube.com/@polyport"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#3a2e2b] transition-colors flex items-center gap-1"
+            >
+              <Youtube className="w-3 h-3" />
+              YouTube
             </a>
           </div>
         </div>
