@@ -1272,7 +1272,8 @@ export default function Home() {
                   loop
                   muted
                   playsInline
-                  className="w-28 h-28 object-cover rounded-2xl border-2 border-[#3a2e2b] shadow-cardboard-sm bg-[#ebdcb9]"
+                  className="rounded-2xl border-2 border-[#3a2e2b] shadow-cardboard-sm bg-[#ebdcb9] object-cover"
+                  style={{ width: "160px", height: "160px" }}
                   onError={(e) => {
                     // Gracefully fallback / show placeholder info if video file doesn't exist
                     const target = e.target as HTMLVideoElement;
