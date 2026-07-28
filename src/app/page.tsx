@@ -3,7 +3,18 @@
 import Image from "next/image";
 import Script from "next/script";
 import React, { useState, useEffect, useRef } from "react";
-import { Instagram, Youtube } from "lucide-react";
+import { Instagram, Youtube, Facebook } from "lucide-react";
+
+const PinterestIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    stroke="none"
+    {...props}
+  >
+    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.08 3.16 9.42 7.63 11.16-.1-.94-.2-2.38.04-3.41.22-.93 1.4-5.95 1.4-5.95s-.36-.72-.36-1.78c0-1.66.96-2.9 2.18-2.9 1.03 0 1.53.77 1.53 1.69 0 1.03-.66 2.58-.99 4.01-.28 1.2.6 2.18 1.78 2.18 2.14 0 3.78-2.26 3.78-5.51 0-2.88-2.07-4.9-5.03-4.9-3.43 0-5.44 2.57-5.44 5.23 0 1.04.4 2.15.9 2.75.1.12.1.22.08.33-.1.38-.3 1.22-.34 1.39-.06.23-.18.28-.41.17-1.53-.71-2.48-2.94-2.48-4.73 0-3.85 2.8-7.39 8.07-7.39 4.24 0 7.53 3.02 7.53 7.05 0 4.21-2.65 7.6-6.34 7.6-1.24 0-2.4-.64-2.8-1.4 0 0-.61 2.33-.76 2.9-.27 1.05-1.02 2.37-1.52 3.17 1.12.35 2.32.54 3.56.54 6.63 0 12-5.37 12-12S18.63 0 12 0z" />
+  </svg>
+);
 
 // ============================================================================
 // PORTFOLIO CONFIGURATION - Feudal Japan Low-Poly 3D Asset Pack
@@ -1440,9 +1451,9 @@ export default function Home() {
                   <label className="text-[10px] font-display font-bold uppercase tracking-wider text-[#8a7a6c] block">
                     Follow Us
                   </label>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-wrap">
                     <a
-                      href="https://instagram.com/polyport"
+                      href="https://www.instagram.com/polyport_studio/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-3 py-1.5 rounded-xl text-xs font-display font-bold bg-[#fdfaf2] hover:bg-[#f5ecd6] border-2 border-[#3a2e2b] text-[#3a2e2b] shadow-cardboard-sm hover:-translate-y-0.5 transition-all flex items-center gap-1.5"
@@ -1451,13 +1462,31 @@ export default function Home() {
                       Instagram
                     </a>
                     <a
-                      href="https://youtube.com/@polyport"
+                      href="https://www.youtube.com/@PolyPort_studio"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-3 py-1.5 rounded-xl text-xs font-display font-bold bg-[#fdfaf2] hover:bg-[#f5ecd6] border-2 border-[#3a2e2b] text-[#3a2e2b] shadow-cardboard-sm hover:-translate-y-0.5 transition-all flex items-center gap-1.5"
                     >
                       <Youtube className="w-3.5 h-3.5 text-[#e05a47]" />
                       YouTube
+                    </a>
+                    <a
+                      href="https://www.pinterest.com/polyport_studio/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 rounded-xl text-xs font-display font-bold bg-[#fdfaf2] hover:bg-[#f5ecd6] border-2 border-[#3a2e2b] text-[#3a2e2b] shadow-cardboard-sm hover:-translate-y-0.5 transition-all flex items-center gap-1.5"
+                    >
+                      <PinterestIcon className="w-3.5 h-3.5 text-[#e05a47]" />
+                      Pinterest
+                    </a>
+                    <a
+                      href="https://www.facebook.com/people/Polyport-Studio/61590437253713/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 rounded-xl text-xs font-display font-bold bg-[#fdfaf2] hover:bg-[#f5ecd6] border-2 border-[#3a2e2b] text-[#3a2e2b] shadow-cardboard-sm hover:-translate-y-0.5 transition-all flex items-center gap-1.5"
+                    >
+                      <Facebook className="w-3.5 h-3.5 text-[#e05a47]" />
+                      Facebook
                     </a>
                   </div>
                 </div>
@@ -1585,7 +1614,7 @@ export default function Home() {
             </a>
             <span>•</span>
             <a
-              href="https://instagram.com/polyport"
+              href="https://www.instagram.com/polyport_studio/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-[#3a2e2b] transition-colors flex items-center gap-1"
@@ -1595,13 +1624,33 @@ export default function Home() {
             </a>
             <span>•</span>
             <a
-              href="https://youtube.com/@polyport"
+              href="https://www.youtube.com/@PolyPort_studio"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-[#3a2e2b] transition-colors flex items-center gap-1"
             >
               <Youtube className="w-3 h-3" />
               YouTube
+            </a>
+            <span>•</span>
+            <a
+              href="https://www.pinterest.com/polyport_studio/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#3a2e2b] transition-colors flex items-center gap-1"
+            >
+              <PinterestIcon className="w-3 h-3 fill-current" />
+              Pinterest
+            </a>
+            <span>•</span>
+            <a
+              href="https://www.facebook.com/people/Polyport-Studio/61590437253713/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#3a2e2b] transition-colors flex items-center gap-1"
+            >
+              <Facebook className="w-3 h-3" />
+              Facebook
             </a>
           </div>
         </div>
